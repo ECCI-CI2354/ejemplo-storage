@@ -19,13 +19,21 @@
             android:text="@string/save" />
 
         <EditText
-            android:id="@+id/text_to_save"
+            android:id="@+id/nombre"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:hint="@string/text_hint"
+            android:hint="Nombre"
             android:layout_toLeftOf="@+id/button_save" />
+        <EditText
+            android:id="@+id/apellido"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/nombre"
+            android:hint="Apellido"
+            android:layout_toLeftOf="@+id/button_save" />
+        
     </RelativeLayout>
 
     <ListView

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class EjemploOpenHelper extends SQLiteOpenHelper implements DBConstants {
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 3;
 	private static final String DATABASE_NAME = "ejemplo.db";
 
 	public EjemploOpenHelper(Context context) {
@@ -17,13 +17,13 @@ public class EjemploOpenHelper extends SQLiteOpenHelper implements DBConstants {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("CREATE TABLE " + PERSON_TABLE_NAME + " ( "
 				+ PersonColumns.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ PersonColumns.FIRSTNAME + " TEXT, "
-				+ PersonColumns.LASTNAME
+				+ PersonColumns.FIRSTNAME + " TEXT, " + PersonColumns.LASTNAME
+				+ " TEXT" + PersonColumns.EMAIL + " TEXT" + PersonColumns.PHONE
 				+ " TEXT" + ")");
 		Log.d("", "Base de datos creada");
-		
-		db.execSQL("INSERT INTO " + PERSON_TABLE_NAME +"("
-				+ PersonColumns.FIRSTNAME+","+PersonColumns.LASTNAME+")"
+
+		db.execSQL("INSERT INO " + PERSON_TABLE_NAME + "("
+				+ PersonColumns.FIRSTNAME + "," + PersonColumns.LASTNAME + ")"
 				+ " VALUES(\"John\",\"Doe\")");
 
 	}
@@ -31,6 +31,24 @@ public class EjemploOpenHelper extends SQLiteOpenHelper implements DBConstants {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+		int i = oldVersion;
+		if (newVersion > i) {
+			updateDBVersion1(db);
+		}
+		i++;
+		if (newVersion > i) {
+			updateDBVersion2(db);
+		}
+	}
+
+	private void updateDBVersion1(SQLiteDatabase db) {
+		db.execSQL("ALTER TABLE " + PERSON_TABLE_NAME + " ADD COLUMN "
+				+ PersonColumns.EMAIL + " TEXT");
+	}
+
+	private void updateDBVersion2(SQLiteDatabase db) {
+		db.execSQL("ALTER TABLE " + PERSON_TABLE_NAME + " ADD COLUMN "
+				+ PersonColumns.PHONE + " TEXT");
 	}
 
 }

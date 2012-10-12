@@ -10,7 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import cr.ac.ucr.ecci.ci2354.android.ejemplostorage.bo.Persona;
 
-public class PersonaListrAdapter extends BaseAdapter {
+public class PersonaListAdapter extends BaseAdapter {
 	List<Persona> personas;
 
 	@Override
@@ -34,6 +34,11 @@ public class PersonaListrAdapter extends BaseAdapter {
 		return position;
 	}
 
+	public void setPersonas(List<Persona> personas) {
+		this.personas = personas;
+		notifyDataSetChanged();
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		PersonaHolder holder;
@@ -43,6 +48,7 @@ public class PersonaListrAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.persona_lista_item, parent,
 					false);
 			holder = new PersonaHolder();
+			convertView.setTag(holder);
 			holder.nombre = (TextView) convertView
 					.findViewById(R.id.persona_nombre);
 			holder.apellido = (TextView) convertView
@@ -53,7 +59,7 @@ public class PersonaListrAdapter extends BaseAdapter {
 		Persona persona = personas.get(position);
 		holder.nombre.setText(persona.getNombre());
 		holder.apellido.setText(persona.getApellido());
-		
+
 		return convertView;
 	}
 
